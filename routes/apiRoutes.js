@@ -1,32 +1,84 @@
 var db = require("../models");
 //var ticketVerifier = require("../models/ticket_verifier");
 
-module.exports = function(app) {
-  // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
-    });
-  });
- // Get all Tickets
-  app.get("/api/tickets", function(req, res) {
-    db.Ticket.findAll({}).then(function(dbTicket) {
+module.exports = function (app) {
+
+  // Get all Tickets
+  app.get("/api/tickets", function (req, res) {
+    db.Ticket.findAll({}).then(function (dbTicket) {
       res.json(dbTicket);
     });
   });
 
   // Create a new ticket
-  app.post("/api/tickets", function(req, res) {
-    db.Ticket.create(req.body).then(function(dbTicket) {
-    res.json(dbTicket);
-    // var isTicketVerified = ticketVerifier.verifyTicket(ticketNumber)
-    // res.json(isTicketVerified);
+  app.post("/api/newticket", function (req, res) {
+    db.Ticket.create(req.body).then(function (dbTicket) {
+      res.json(dbTicket);
+      // var isTicketVerified = ticketVerifier.verifyTicket(ticketNumber)
+      // res.json(isTicketVerified);
     });
   });
 
+  // PUT for Checkin
+  app.put("/api/ticketverify", function (req, res) {
+    db.Ticket.count({
+      where: {
+        ticket_no: req.body.ticket_no,
+        used: false
+      }
+    }).then(function(count) {
+      console.log('hey what is the count')
+      console.log(count)
+      if (count === 1) {
+        db.Ticket.update(
+          req.body,
+          {
+            where: {
+              ticket_no: req.body.ticket_no
+            }
+          }).then(function (dbTicket) {
+            res.json(dbTicket);
+
+          });
+      }
+      else {
+        console.log('dont be an ass and loging for someone else')
+        res.json({'error': 'invalid ticket'})
+      }
+    })
+
+
+  });
+
+  // var isTicketVerified = ticketVerifier.verifyTicket(ticketNumber)
+  // res.json(isTicketVerified);
+
+  app.post("/api/findticket", function (req, res) {
+    db.Ticket.findAll({
+      where: {
+        ticket_no: req.body.ticket_no
+      }
+    }).then(function (dbTicket) {
+      if (!dbTicket) {
+        res.json(JSON.stringify({ 'error': 'invalid ticket' }))
+      }
+      else {
+        res.json(dbTicket);
+      }
+    });
+  });
+
+  /*   app.post("/api/customers", function (req, res) {
+      db.Tickets.update(ticketId = body.TicketId, customerId = body.CustomerId)
+      db.Customers.create(req.body)
+      }).then(function (dbTicket) {
+       
+    }); */
+
+
   // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
+  app.delete("/api/examples/:id", function (req, res) {
+    db.Example.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
       res.json(dbExample);
     });
   });
