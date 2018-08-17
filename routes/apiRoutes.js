@@ -19,14 +19,14 @@ module.exports = function (app) {
     });
   });
 
-  // PUT for Checkin
+  // PUT for ticket verification
   app.put("/api/ticketverify", function (req, res) {
     db.Ticket.count({
       where: {
         ticket_no: req.body.ticket_no,
         used: false
       }
-    }).then(function(count) {
+    }).then(function (count) {
       console.log('hey what is the count')
       console.log(count)
       if (count === 1) {
@@ -43,15 +43,13 @@ module.exports = function (app) {
       }
       else {
         console.log('dont be an ass and loging for someone else')
-        res.json({'error': 'invalid ticket'})
+        res.json({ 'error': 'invalid ticket' })
       }
     })
 
 
   });
 
-  // var isTicketVerified = ticketVerifier.verifyTicket(ticketNumber)
-  // res.json(isTicketVerified);
 
   app.post("/api/findticket", function (req, res) {
     db.Ticket.findAll({
@@ -65,6 +63,20 @@ module.exports = function (app) {
       else {
         res.json(dbTicket);
       }
+    });
+  });
+
+  // Get all Rides
+  app.get("/api/rides", function (req, res) {
+    db.Ride.findAll({}).then(function (dbRide) {
+      res.json(dbRide);
+    });
+  });
+
+  // Create a new Ride
+  app.post("/api/newride", function (req, res) {
+    db.Ride.create(req.body).then(function (dbRide) {
+      res.json(dbRide);
     });
   });
 
