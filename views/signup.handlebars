@@ -1,21 +1,78 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link rel="stylesheet" type="text/css" href="public/styles/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
 </head>
+
 <body>
-<form id="signup" name="signup" method="post" action="/signup">
-  <label for="email">Email Address</label>
-  <input class="text" name="email" type="email" />
-  <label for="firstname">Firstname</label>
-  <input name="firstname" type="text" />
-  <label for="lastname">Lastname</label>
-  <input name="lastname" type="text" />
-  <label for="password">Password</label>
-  <input name="password" type="password" />
-  <input class="btn" type="submit" value="Sign Up" />
-</form>
+  <section class="hero is-success is-fullheight is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Hold my spot.
+        </h1>
+        <div class="columns is-mobile">
+          <div class="column is-half">
+            <form id="signup" name="signup" method="post" action="/signup">
+              <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input is-rounded" name="email" type="email" placeholder="Email">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input is-rounded" name="firstname" type="text" placeholder="First Name">
+                  <span class="icon is-small is-left">
+                    <i class=""></i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input is-rounded" name="lastname" type="text" placeholder="Last Name">
+                  <span class="icon is-small is-left">
+                    <i class=""></i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input class="input is-rounded" name= "password" type="password" placeholder="Password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button class="button btn is-success" type="submit" value="Sign Up">
+                    Register
+                  </button>
+                </p>
+              </div>
+{{!--               <label for="email">Email Address</label>
+              <input class="text" name="email" type="email" />
+              <label for="firstname">Firstname</label>
+              <input name="firstname" type="text" />
+              <label for="lastname">Lastname</label>
+              <input name="lastname" type="text" />
+              <label for="password">Password</label>
+              <input name="password" type="password" /> --}}
+              {{!-- <input class="btn" type="submit" value="Sign Up" /> --}}
+            </form>
+          </div>
+        </div>
+
 
 </body>
+
 </html>

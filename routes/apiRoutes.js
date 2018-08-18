@@ -46,8 +46,6 @@ module.exports = function (app) {
         res.json({ 'error': 'invalid ticket' })
       }
     })
-
-
   });
 
 
