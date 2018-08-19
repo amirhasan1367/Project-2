@@ -3,7 +3,7 @@
 var $exampleDescription = $("#example-description"); */
 
 var $submitBtn = $("#submit");
-var $checkIn = $("#checkIn");
+var $checkIn = $(".checkIn");
 /* var $exampleList = $("#example-list"); */
 
 var $ticketEntry = $("#ticketEntry")
@@ -111,16 +111,16 @@ var handleFormSubmit = function (event) {
 
 };
 
-var handleRideCheckin = function (event) {
+var handleRideCheckin = function () {
   event.preventDefault();
 
   var queue = {
-    rideId: $(this).value,
+    rideId: $(this).val(),
   };
-  console.log("what is the value: " + parseInt($(this).value));
+  console.log("what is the value: " + parseInt($(this).val()));
 
   API.rideCheckin(queue).then(function () {
-    console.log("you're in queue'")
+    console.log("you're in queue")
     //window.location.href = "http://localhost:5000/rides";
 
   });
