@@ -1,7 +1,8 @@
 module.exports = function(sequelize, Datatypes) {
     var Queue = sequelize.define("Queue", {
       rideId: {
-        type: Datatypes.INTEGER
+        type: Datatypes.STRING,
+        allowNull: false
       }
     });
   

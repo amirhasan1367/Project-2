@@ -115,7 +115,7 @@ var handleRideCheckin = function (event) {
   event.preventDefault();
 
   var queue = {
-    rideId: $("#checkIn").value,
+    rideId: $(this).value,
   };
   console.log("what is the value: " + parseInt($(this).value));
 
