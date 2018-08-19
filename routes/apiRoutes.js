@@ -1,4 +1,7 @@
 var db = require("../models");
+var authController = require('../controllers/authcontroller.js');
+
+
 //var ticketVerifier = require("../models/ticket_verifier");
 
 module.exports = function (app) {
@@ -38,16 +41,28 @@ module.exports = function (app) {
             }
           }).then(function (dbTicket) {
             res.json(dbTicket);
+            //return res.redirect('/rides');
 
           });
       }
       else {
-        console.log('dont be an ass and loging for someone else')
-        res.json({ 'error': 'invalid ticket' })
+        console.log('This is not a valid ticket!')
+        //res.json({ 'error': 'invalid ticket' })
+        return res.redirect('back');
       }
     })
   });
 
+  //POST for rides check-in
+  app.post("/api/ridescheckin", function (req, res) {
+    db.Queue.create(req.body).then(function (dbQueue) {
+      res.json(dbQueue);
+    })
+  });
+
+  app.get('/rides', function (req, res) {
+    res.render("views/rides")
+  })
 
   app.post("/api/findticket", function (req, res) {
     db.Ticket.findAll({

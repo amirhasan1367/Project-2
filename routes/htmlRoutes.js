@@ -35,9 +35,14 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/rides.html"));
   });
 
+  app.get("/ridesticket", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/ridesticket.html"));
+  });
 
 
-  // Render 404 page for any unmatched routes
+
+
+  //Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");
   });

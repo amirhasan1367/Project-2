@@ -1,8 +1,11 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+/* var $exampleText = $("#example-text");
+var $exampleDescription = $("#example-description"); */
+
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+/* var $exampleList = $("#example-list"); */
+
+var $ticketEntry = $("#ticketEntry")
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -14,6 +17,17 @@ var API = {
       type: "POST",
       url: "api/examples",
       data: JSON.stringify(example)
+    });
+  },
+
+  ticketUpdate: function(ticket) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "PUT",
+      url: "api/ticketverify",
+      data: JSON.stringify(ticket)
     });
   },
   getExamples: function() {
@@ -31,7 +45,7 @@ var API = {
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
+/* var refreshExamples = function() {
   API.getExamples().then(function(data) {
     var $examples = data.map(function(example) {
       var $a = $("<a>")
@@ -57,29 +71,31 @@ var refreshExamples = function() {
     $exampleList.empty();
     $exampleList.append($examples);
   });
-};
+}; */
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var ticket = {
+    ticket_no: $ticketEntry.val().trim(),
+    used: true
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (!(ticket.ticket_no )) {
+    alert("Please enter a valid ticket number!");
     return;
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  $ticketEntry.val("");
+
+  API.ticketUpdate(ticket).then(function() {
+    console.log("your entry is submitted, wait for your turn")
+    window.location.href = "http://localhost:5000/rides";
+
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
@@ -96,4 +112,5 @@ var handleDeleteBtnClick = function() {
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+/* $exampleList.on("click", ".delete", handleDeleteBtnClick);
+ */

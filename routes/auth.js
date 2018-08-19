@@ -8,7 +8,14 @@ app.get('/signup', authController.signup);
 app.get('/signin', authController.signin);
 
 
-app.post('/signup', passport.authenticate('local-signup',  { successRedirect: '/rides',
+app.get('/ridesticket', authController.ridesticket)
+
+
+app.get('/rides', authController.rides)
+
+
+
+app.post('/signup', passport.authenticate('local-signup',  { successRedirect: '/ridesticket',
                                                     failureRedirect: '/signup'}
                                                     ));
 

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hold my Spot.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+  <style rel="stylesheet" src="styles.css"></style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+</head>
+
+<body has-navbar-fixed-top>
+  <section class="hero has-background-info is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+      <header class="navbar is-fixed-top">
+        <div class="container">
+          <div class="navbar-brand">
+            {{!--
+            <a class="navbar-item">
+              <img src="" alt="Logo">
+            </a> --}}
+
+          </div>
+          <div id="navbarMenuHeroC">
+            <div class="navbar-end">
+              <span class="navbar-item">
+                <a class="button is-success is-inverted" data-toggle="modal" href="#ticketModal">
+                  <span class="icon">
+                    <i class="fas fa-ticket-alt"></i>
+                  </span>
+                  <span>Ticket</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Ticket #</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="field">
+              <p class="control has-icons-left">
+                <input id="ticketEntry" class="input is-rounded" type="text" placeholder="Ticket Number">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-ticket-alt"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a id="submit" type="button" class="btn btn-primary" href="/rides">Verify!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="columns is-mobile is-centered">
+          <div class="column">
+            <p class="bd-notification is-primary">
+              <h1>Please enter your ticket information.</h1>
+            </p>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <img src="https://cdn-cloudfront.cfauthx.com/binaries/content/gallery/cp-en-us/icons/cp-millenniumforce-ridesicon.png" alt="Millennium Force"
+              data-toggle="modal" href="#ticketModal">
+
+
+
+          </div>
+          <div class="column">
+            <img src="https://cdn-cloudfront.cfauthx.com/binaries/content/gallery/cp-en-us/icons/cp-valravn-ridesicon.png" alt="Valravn"
+              data-toggle="modal" href="#ticketModal">
+
+
+
+          </div>
+          <div class="column">
+            <img src="https://cdn-cloudfront.cfauthx.com/binaries/content/gallery/cp-en-us/icons/cp-topthrilldragster-ridesicon.png"
+              alt="Top Thrill Dragster" data-toggle="modal" href="#ticketModal">
+
+
+
+          </div>
+          <div class="column">
+            <img src="https://cdn-cloudfront.cfauthx.com/binaries/content/gallery/cp-en-us/icons/cp-maverick-ridesicon.png" alt="Maverick"
+              data-toggle="modal" href="#ticketModal">
+
+
+
+          </div>
+          <div class="column">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/GateKeeper_logo.svg/1200px-GateKeeper_logo.svg.png" alt="Gatekeeper"
+              data-toggle="modal" href="#ticketModal">
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Hero footer: will stick at the bottom -->
+    <div class="hero-foot">
+      Hold My Spot.
+      <i class="far fa-copyright"></i>
+    </div>
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/js/index.js"></script>
+</body>
+
+</html>

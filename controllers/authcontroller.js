@@ -19,6 +19,16 @@ exports.dashboard = function(req,res){
 
 }
 
+exports.ridesticket = function(req,res){
+
+	res.render('ridesticket'); 
+
+}
+
+exports.rides = function (req, res){
+  res.render('rides');
+}
+
 exports.logout = function(req,res){
 
   req.session.destroy(function(err) {
