@@ -41,9 +41,31 @@ var API = {
       data: JSON.stringify(ride)
     });
   },
+
+  peopleCount: function(count){
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/peopleCount",
+      data: JSON.stringify(count)
+    });
+  },
+  rideCapacity: function(capacity){
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/rideCapacity",
+      data: JSON.stringify(capacity)
+    });
+  },
+  
   //My code ----------------------------------------
 
-  getExamples: function () {
+/*   getExamples: function () {
     return $.ajax({
       url: "api/examples",
       type: "GET"
@@ -54,37 +76,10 @@ var API = {
       url: "api/examples/" + id,
       type: "DELETE"
     });
-  }
+  } */
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-/* var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
-      var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": example.id
-        })
-        .append($a);
-
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
-
-      $li.append($button);
-
-      return $li;
-    });
-
-    $exampleList.empty();
-    $exampleList.append($examples);
-  });
-}; */
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
@@ -106,7 +101,6 @@ var handleFormSubmit = function (event) {
   API.ticketUpdate(ticket).then(function () {
     console.log("your entry is submitted, wait for your turn")
     window.location.href = "http://localhost:5000/rides";
-
   });
 
 };
@@ -122,25 +116,33 @@ var handleRideCheckin = function () {
   API.rideCheckin(queue).then(function () {
     console.log("you're in queue")
     //window.location.href = "http://localhost:5000/rides";
-
+    API.peopleCount (queue).then(function(people){
+      console.log("peope in line for this ride: " + people);
+    })
+  
   });
 
 };
 
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function () {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
+/* var peopleCount = function(){
+  event.preventDefault();
 
-  API.deleteExample(idToDelete).then(function () {
-    refreshExamples();
-  });
-};
+  var queue = {
+    rideId: $(this).val(),
+    
+  }
+
+  API.peopleCount (queue).then(function(people){
+    console.log("peope in line for this ride: " + people);
+  })
+} */
+
+
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$checkIn.on("click", handleRideCheckin)
+$checkIn.on("click", handleRideCheckin);
+//$checkIn.on("click", peopleCount)
+
 /* $exampleList.on("click", ".delete", handleDeleteBtnClick);
  */

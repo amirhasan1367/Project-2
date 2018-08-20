@@ -53,12 +53,44 @@ module.exports = function (app) {
     })
   });
 
+  //GET for rides ETA
+
+  app.post('/api/peopleCount', function (req, res) {
+    db.Queue.count({
+      where: {
+        rideId: req.body.rideId
+      }
+    }).then(function (count) {
+      console.log("how many people: " + count);
+      res.json(count);
+
+    })
+  });
+
+  //GET for ride capacity
+
+  app.post('/api/ridesCapacity', function (req, res){
+    db.Ride.findAll({
+      where:{
+        id: req.body.id
+      }
+    }).then(function(ride){
+      res.json(ride);
+      //console.log("here is for capacity" + res.json(ride))
+      //console.log("ride capacity" + ride[0].Capacity)
+    })
+      
+    
+  })
+
   //POST for rides check-in
   app.post("/api/ridescheckin", function (req, res) {
     db.Queue.create(req.body).then(function (dbQueue) {
       res.json(dbQueue);
     })
   });
+
+
 
   app.get('/rides', function (req, res) {
     res.render("views/rides")
