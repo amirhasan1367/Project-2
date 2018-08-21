@@ -113,7 +113,7 @@ $(document).ready(function () {
 
   };
 
-
+//Global variables
   var totalPeople = 0;
   var totalCapacity = 0;
   var totalRunTime = 0;
