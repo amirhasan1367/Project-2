@@ -125,6 +125,12 @@ module.exports = function (app) {
     });
   });
 
+  //POST confirmation
+  app.post("/api/confirmation", function (req, res) {
+    db.Confirmation.create(req.body).then(function (dbConf) {
+      res.json(dbConf);
+    });
+  });
   /*   app.post("/api/customers", function (req, res) {
       db.Tickets.update(ticketId = body.TicketId, customerId = body.CustomerId)
       db.Customers.create(req.body)

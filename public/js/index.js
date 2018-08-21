@@ -62,7 +62,16 @@ $(document).ready(function () {
         data: JSON.stringify(capacity)
       });
     },
-
+    confirmationNo: function (conf) {
+      return $.ajax({
+        headers: {
+          "Content-Type": "application/json"
+        },
+        type: "POST",
+        url: "api/confirmation",
+        data: JSON.stringify(conf)
+      });
+    },
     //My code ----------------------------------------
 
     /*   getExamples: function () {
@@ -107,14 +116,23 @@ $(document).ready(function () {
 
   var totalPeople = 0;
   var totalCapacity = 0;
+  var totalRunTime = 0;
+  var rideName;
+  var confNo = Math.ceil(Math.random() * 10000);;
 
   //this function calcs the wait time
-  var waitTimeCalculator = function(){
+  var waitTimeCalculator = function () {
 
-    if(totalPeople == 0 || totalCapacity == 0){
+    if (totalPeople == 0 || totalCapacity == 0 || totalRunTime == 0 || rideName == "" || confNo == 0 ) {
       return false
     }
-    console.log("this the new function logging " + totalPeople + "and" + totalCapacity)
+    //var confNo = Math.ceil(Math.random() * 10000);
+    console.log("this the new function logging " + totalPeople + "and" + totalCapacity);
+    //alert ("Your total wait time is:  " + Math.ceil(Math.ceil(((totalPeople / totalCapacity) * totalRunTime))/60) + " minutes")
+    $("#confText").html("<p>Your reservation for <strong>" + rideName + "</strong> is completed</p>" +
+      "<p>Your total wait time is:  " + Math.ceil(Math.ceil(((totalPeople / totalCapacity) * totalRunTime)) / 60) + " minutes</p>" +
+      "<p>Your confirmation number is: " + confNo + "</p>");
+    handleConfirmation(rideName, confNo);
   }
 
 
@@ -137,10 +155,10 @@ $(document).ready(function () {
       //window.location.href = "http://localhost:5000/rides";
       API.peopleCount(queue).then(function (people) {
         console.log("peope in line for this ride: " + people);
-/*         API.rideCapacity(queue).then(function (ride) {
-          console.log("here is your ride capacity: " + ride);
-    
-        }) */
+        /*         API.rideCapacity(queue).then(function (ride) {
+                  console.log("here is your ride capacity: " + ride);
+            
+                }) */
         totalPeople = people;
         console.log("1st log" + totalPeople)
 
@@ -150,7 +168,7 @@ $(document).ready(function () {
       })
 
     });
-    
+
 
   };
 
@@ -175,19 +193,41 @@ $(document).ready(function () {
       console.log("here is your ride capacity: " + ride[0].Capacity);
       console.log("here is your ride run time: " + ride[0].RunTimeSec);
 
+      totalRunTime = ride[0].RunTimeSec;
       totalCapacity = ride[0].Capacity;
-      console.log("2nd log: "+totalCapacity)
+      rideName = ride[0].Name;
+      console.log("2nd log: " + totalCapacity)
 
       waitTimeCalculator();
 
-      return totalCapacity;
+      return totalCapacity && totalRunTime && rideName;
     })
 
-    
-    
+
+
   }
 
+  var handleConfirmation = function (conf) {
+    //event.preventDefault();
 
+    var confirmation = {
+      rideName: rideName,
+      confNo: confNo
+    };
+
+    API.confirmationNo(confirmation).then(function (conf) {
+      if (confNo == 0 ) {
+        return false
+      }
+      confNo = conf.confNo;
+      console.log("success! " + conf.confNo);
+      //waitTimeCalculator();
+
+      return confNo;
+
+    });
+
+  };
 
   // Add event listeners to the submit and delete buttons
   $submitBtn.on("click", handleFormSubmit);
